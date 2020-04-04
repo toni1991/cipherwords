@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+    <head>
+        <title>cipher words</title>
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/cipherwords.css') }}">
+        <!-- <meta http-equiv="refresh" content="5" > Uncomment for autoreload --> 
+    </head>
+    <body>
+        <h1>cipher words</h1>
+
+        <div class="pure-g">
+          <div class="pure-u-1-3">
+            <form action="/initGame"> 
+              <button type="submit" class="pure-button button-game">New Game</button>
+            </form>
+          </div>
+          <div class="pure-u-1-3">
+            <h3 class="red">Red cards left: {{ gameData.redCards }}</h3>
+            <h3 class="blue">Blue cards left: {{ gameData.blueCards }}</h3>
+          </div>
+          <div class="pure-u-1-3">
+          {% if explain %}
+            <form action="/guess"> 
+              <button type="submit" class="pure-button button-game">Guessing</button>
+            </form>
+          {% else %}
+            <form action="/explain"> 
+              <button type="submit" class="pure-button button-game">Explain</button>
+            </form>
+          {% endif %}
+          </div>
+        </div>
+
+        <br>  
+
+        {% if gameData.redBegins %}
+          {% set gameBoardClass = 'game-board-red' %}
+        {% else %}
+          {% set gameBoardClass = 'game-board-blue' %}
+        {% endif %}
+
+        <div class="{{ gameBoardClass }}">
+        <br>
+
+        {% for rowCount in range(gameData.grid|length) %}
+          <div class="pure-g">
+              {% for colCount in range(gameData.grid[rowCount]|length) %}
+                <div class="pure-u-1-{{ gameData.gridSize }}">
+                    {% if gameData.grid[rowCount][colCount]['flipped'] or explain %}
+                      {% if gameData.grid[rowCount][colCount]['category'] == 1 %}
+                        {% set buttonClass = 'button-agent' %}
+                      {% elif gameData.grid[rowCount][colCount]['category'] == 2 %} 
+                        {% set buttonClass = 'button-red' %}
+                      {% elif gameData.grid[rowCount][colCount]['category'] == 3 %} 
+                        {% set buttonClass = 'button-blue' %}
+                      {% elif gameData.grid[rowCount][colCount]['category'] == 4 %} 
+                        {% set buttonClass = 'button-neutral' %}
+                      {% endif %}  
+                    {% else %}
+                        {% set buttonClass = 'button-neutral' %}
+                    {% endif %}
+
+                    <form action="/{% if explain %}flip{% else %}choose{% endif %}/{{ rowCount }}/{{ colCount }}">
+                      <button type="submit" class="button-image pure-button {{ buttonClass }} {% if gameData.grid[rowCount][colCount]['flipped'] %} button-flipped {% elif gameData.grid[rowCount][colCount]['chosen'] %} blink {% endif %}">
+                        {% if not gameData.grid[rowCount][colCount]['flipped'] %}
+                          {{ gameData.grid[rowCount][colCount]['word'] }}
+                        {% else %}
+                          ✓
+                        {% endif %}
+                      </button>
+                    </form>
+                </div>
+              {% endfor %}
+          </div>
+          <br>
+        {% endfor %}
+        </div>
+        <br>
+        <br>
+        <br>
+        <h4>Game ID</h4>
+        <h5>Paste at start screen to load current state</h5>
+        <p class='identifier'>{{ identifier }}</p>
+        <br>
+        <br>
+        <br>
+    </body>
+</html>

@@ -1,0 +1,123 @@
+body {
+	width: 90%;
+	display: block;
+	text-align: center;
+	margin: auto;
+}   
+
+.identifier {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  font-size: .5em; 
+}
+
+.identifier-input {
+  width: 100%;
+}
+
+.red {
+	color: rgb(202, 60, 60);
+}
+
+.blue {
+	color: rgb(66, 130, 240);
+}
+
+.game-board-red,
+.game-board-blue {
+	border-style: dashed;
+	border-width: 0.5vw;
+    border-radius: 0.5vw;
+}
+
+.game-board-red {
+	border-color: rgb(202, 60, 60);
+}
+
+.game-board-blue {
+	border-color: rgb(66, 130, 240);
+}
+
+.icon {
+  color: white;
+	width: 4vw;
+	height: 4vw;
+}
+
+.button-agent,
+.button-red,
+.button-blue, 
+.button-neutral,
+.button-game {
+    color: white;
+    border-radius: 0.5vw;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    height: 10vh;
+    margin: auto;
+    display: block;
+    font-size: 1.5vw;
+    font-weight: bold;
+}
+
+.button-flipped {
+    opacity: 0.75;
+    filter: alpha(opacity=75);
+}
+
+.button-disabled {
+	pointer-events: none;
+}
+
+.button-agent {
+    background: rgb(11, 11, 11); /* this is a dark grey */
+}
+
+.button-red {
+    background: rgb(202, 60, 60); /* this is a maroon */
+}
+
+.button-blue {
+    background: rgb(66, 130, 240); /* this is a light blue */
+}
+
+.button-neutral {
+    background: rgb(222, 188, 124); /* this is a beige */
+}
+
+.button-game {
+    background: rgb(100, 100, 100); /* this is a grey */
+}
+
+.blink {
+  animation: blink-animation 2s steps(50, start) infinite;
+  -webkit-animation: blink-animation 2s steps(50, start) infinite;
+}
+
+@keyframes blink-animation {
+  0% {
+    opacity: 1.0;
+  }
+
+  50% {
+    opacity: 0.0;
+  }
+
+  100% {
+    opacity: 1.0;
+  }
+}
+
+@-webkit-keyframes blink-animation {
+  0% {
+    opacity: 1.0;
+  }
+
+  50% {
+    opacity: 0.0;
+  }
+  
+  100% {
+    opacity: 1.0;
+  }
+}
