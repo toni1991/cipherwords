@@ -121,3 +121,19 @@ body {
     opacity: 1.0;
   }
 }
+
+.game-id {
+  display: none;
+}
+
+.trigger:checked + .game-id {
+  display: block;
+}
+
+.trigger {
+  display: none;
+}
+
+.trigger-label {
+  cursor: pointer;
+}

@@ -16,8 +16,8 @@
             </form>
           </div>
           <div class="pure-u-1-3">
-            <h3 class="red">Red cards left: {{ gameData.redCards }}</h3>
-            <h3 class="blue">Blue cards left: {{ gameData.blueCards }}</h3>
+            <h3 class="red">Red words left: {{ gameData.redWords }}</h3>
+            <h3 class="blue">Blue words left: {{ gameData.blueWords }}</h3>
           </div>
           <div class="pure-u-1-3">
           {% if explain %}
@@ -46,15 +46,15 @@
         {% for rowCount in range(gameData.grid|length) %}
           <div class="pure-g">
               {% for colCount in range(gameData.grid[rowCount]|length) %}
-                <div class="pure-u-1-{{ gameData.gridSize }}">
+                <div class="pure-u-1-{{ gameData.grid[rowCount]|length }}">
                     {% if gameData.grid[rowCount][colCount]['flipped'] or explain %}
-                      {% if gameData.grid[rowCount][colCount]['category'] == 1 %}
+                      {% if gameData.grid[rowCount][colCount]['category'] == 'black' %}
                         {% set buttonClass = 'button-agent' %}
-                      {% elif gameData.grid[rowCount][colCount]['category'] == 2 %} 
+                      {% elif gameData.grid[rowCount][colCount]['category'] == 'red' %} 
                         {% set buttonClass = 'button-red' %}
-                      {% elif gameData.grid[rowCount][colCount]['category'] == 3 %} 
+                      {% elif gameData.grid[rowCount][colCount]['category'] == 'blue' %} 
                         {% set buttonClass = 'button-blue' %}
-                      {% elif gameData.grid[rowCount][colCount]['category'] == 4 %} 
+                      {% elif gameData.grid[rowCount][colCount]['category'] == 'neutral' %} 
                         {% set buttonClass = 'button-neutral' %}
                       {% endif %}  
                     {% else %}
@@ -78,10 +78,13 @@
         </div>
         <br>
         <br>
-        <br>
-        <h4>Game ID</h4>
-        <h5>Paste at start screen to load current state</h5>
-        <p class='identifier'>{{ identifier }}</p>
+
+        <label class="trigger-label" for="trigger"><h3>Show Game ID</h3></label>
+        <input class="trigger" id="trigger" type="checkbox">
+        <div class="game-id">
+          <h5>Paste at start screen to load current state</h5>
+          <p class='identifier'>{{ identifier }}</p>
+        </div>
         <br>
         <br>
         <br>
